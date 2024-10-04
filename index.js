@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import express from "express";
 import env from "dotenv";
 import session from "express-session";
-import { Passport } from "passport";
+import passport from "passport";
 import pg from "pg";
 import { Strategy } from "passport-local";
 env.config();
@@ -26,8 +26,14 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+    },
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/home", (req, res) => {
   res.render("index.ejs");
@@ -49,9 +55,25 @@ app.get("/principal-officer", (req, res) => {
   res.render("principal-officer.ejs");
 });
 
-app.get("/login", (req, res) => {
+app.get("/", (req, res) => {
   res.render("login.ejs");
 });
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/home",
+    failureRedirect: "/",
+  })
+);
+
+passport.use(
+  new Strategy(async function verify(username, password, cb) {
+    console.log(`${username}:${password}`);
+    const request = await db.query("SELECT * FROM admin");
+    console.log(request);
+  })
+);
 
 app.listen(port, () => {
   console.log(`The app is listenig on port ${port}`);
