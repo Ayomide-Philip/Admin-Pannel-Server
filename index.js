@@ -37,23 +37,43 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/home", (req, res) => {
-  res.render("index.ejs");
+  if (req.isAuthenticated()) {
+    res.render("index.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/message", (req, res) => {
-  res.render("message.ejs");
+  if (req.isAuthenticated()) {
+    res.render("message.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/testimonial", (req, res) => {
-  res.render("testimonial.ejs");
+  if (req.isAuthenticated()) {
+    res.render("testimonial.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/post-testimonial", (req, res) => {
-  res.render("post-testimonial.ejs");
+  if (req.isAuthenticated()) {
+    res.render("post-testimonial.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/principal-officer", (req, res) => {
-  res.render("principal-officer.ejs");
+  if (req.isAuthenticated()) {
+    res.render("principal-officer.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.get("/", (req, res) => {
@@ -68,7 +88,7 @@ app.post(
   })
 );
 
-app.get(".logout", (req, res) => {
+app.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) console.log(err);
     res.redirect("/");
@@ -80,7 +100,6 @@ passport.use(
     const request = await db.query("SELECT * FROM admin");
     const savedUsename = request.rows[0].username;
     const savedPassword = request.rows[0].password;
-    console.log(request);
     try {
       if (username != savedUsename) {
         return cb(null, false);
