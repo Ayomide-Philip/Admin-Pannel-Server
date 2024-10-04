@@ -7,6 +7,11 @@ import pg from "pg";
 import { Strategy } from "passport-local";
 env.config();
 
+const db = new pg.Client({
+  user : process.env.PG_CLIENT_USERNAME,
+  
+})
+
 const app = express();
 const port = 3000;
 
