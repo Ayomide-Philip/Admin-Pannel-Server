@@ -21,7 +21,15 @@ const db = new pg.Client({
 
 db.connect();
 
-app.get("/", (req, res) => {
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.get("/home", (req, res) => {
   res.render("index.ejs");
 });
 
