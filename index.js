@@ -4,6 +4,7 @@ import env from "dotenv";
 import session from "express-session";
 import passport from "passport";
 import pg from "pg";
+import bcrypt from "bcryptjs";
 import { Strategy } from "passport-local";
 env.config();
 
@@ -20,7 +21,7 @@ const db = new pg.Client({
 });
 
 db.connect();
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SECRET,
@@ -69,11 +70,35 @@ app.post(
 
 passport.use(
   new Strategy(async function verify(username, password, cb) {
-    console.log(`${username}:${password}`);
     const request = await db.query("SELECT * FROM admin");
+    const savedUsename = request.rows[0].username;
+    const savedPassword = request.rows[0].password;
     console.log(request);
+    try {
+      if (username != savedUsename) {
+        return cb(null, false);
+      }
+
+      bcrypt.compare(password, savedPassword, (err, result) => {
+        if (result) {
+          return cb(null, request.rows[0]);
+        } else {
+          return cb(null, false);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   })
 );
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+  cb(null, user);
+});
 
 app.listen(port, () => {
   console.log(`The app is listenig on port ${port}`);
