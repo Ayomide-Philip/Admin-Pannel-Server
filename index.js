@@ -7,15 +7,19 @@ import pg from "pg";
 import { Strategy } from "passport-local";
 env.config();
 
-const db = new pg.Client({
-  user : process.env.PG_CLIENT_USERNAME,
-  
-})
-
 const app = express();
 const port = 3000;
 
 app.use(express.static("public"));
+const db = new pg.Client({
+  user: process.env.PG_CLIENT_USERNAME,
+  database: process.env.PG_CLIENT_DATABASE,
+  port: process.env.PG_CLIENT_PORT,
+  host: process.env.PG_CLIENT_HOST,
+  password: process.env.PG_CLIENT_PASSWORD,
+});
+
+db.connect();
 
 app.get("/", (req, res) => {
   res.render("index.ejs");
