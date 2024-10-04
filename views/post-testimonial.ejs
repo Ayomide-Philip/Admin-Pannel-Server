@@ -1,0 +1,33 @@
+<%- include("partials/header.ejs") %>
+    <link rel="stylesheet" href="./stylesheet/post-testimonial.css">
+    <div class="content-container">
+        <div class="form">
+            <form action="#">
+                <h1>Testimonial</h1>
+                <div class="input">
+                    <input type="text" name="name" id="name" placeholder="Please Input You Full Name">
+                    <p id="name-error" class="error"></p>
+                </div>
+                <div class="input">
+                    <label for="testimonial">Pick the one That Best Describe you:</label>
+                    <select name="testimonial-person" id="testimonial-person">
+                        <option value="parent">Parent</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <div class="input">
+                    <textarea name="message" id="message" cols="30" rows="10"
+                        placeholder="Input your Testimonial about the school"></textarea>
+                    <p id="message-error" class="error"></p>
+                </div>
+                <div class="btn">
+                    <input type="submit" value="Submit" id="btn">
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <script src="./script/post-testimonial.js"></script>
+    <%- include("partials/footer.ejs") %>
