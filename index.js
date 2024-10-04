@@ -68,6 +68,13 @@ app.post(
   })
 );
 
+app.get(".logout", (req, res) => {
+  req.logout((err) => {
+    if (err) console.log(err);
+    res.redirect("/");
+  });
+});
+
 passport.use(
   new Strategy(async function verify(username, password, cb) {
     const request = await db.query("SELECT * FROM admin");
