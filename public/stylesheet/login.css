@@ -96,7 +96,7 @@ div.content-container {
 
 
 body {
-    background-color: #F5F7F8;
+    background-color: green;
 }
 
 input[type="password"],
@@ -190,6 +190,8 @@ div.contact-form {
     width: 30%;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    
 }
 
 div.form-logo>img {
