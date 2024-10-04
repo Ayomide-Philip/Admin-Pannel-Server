@@ -7,8 +7,6 @@ import pg from "pg";
 import { Strategy } from "passport-local";
 env.config();
 
-
-
 const app = express();
 const port = 3000;
 
@@ -32,6 +30,10 @@ app.get("/post-testimonial", (req, res) => {
 
 app.get("/principal-officer", (req, res) => {
   res.render("principal-officer.ejs");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login.ejs");
 });
 
 app.listen(port, () => {
