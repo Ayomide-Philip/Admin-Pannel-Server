@@ -191,7 +191,7 @@ div.contact-form {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    
+    box-shadow: 2px 5px 1px black;
 }
 
 div.form-logo>img {
