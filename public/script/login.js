@@ -12,11 +12,11 @@ btn.addEventListener("click", (event) => {
     document.getElementById("password-error").innerText =
       "Enter your Password into this field";
   } else {
-    if (inputedPassword.length < 8) {
+    if (inputedPassword.length < 3) {
       event.preventDefault();
       document.getElementById("password-error").style.display = "block";
       document.getElementById("password-error").innerText =
-        "You password must be at least 8 character.";
+        "You password must be at least 3 character.";
     } else {
       document.getElementById("password-error").style.display = "none";
     }
