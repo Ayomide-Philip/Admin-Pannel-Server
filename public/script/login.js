@@ -4,7 +4,7 @@ btn.addEventListener("click", (event) => {
   var inputedPassword = document.getElementById("password").value;
   var username = document.getElementById("username").value;
 
-  username = emailAddress.trim();
+  username = username.trim();
 
   if (inputedPassword.length === 0) {
     event.preventDefault();
@@ -26,7 +26,7 @@ btn.addEventListener("click", (event) => {
     event.preventDefault();
     document.getElementById("name-error").style.display = "block";
     document.getElementById("name-error").innerText =
-      "Input you Gmail Address in the field";
+      "Input you Usename in the field";
   }
 });
 
