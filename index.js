@@ -96,25 +96,9 @@ app.get("/logout", (req, res) => {
 });
 
 passport.use(
-  new Strategy(async function verify(username, password, cb) {
-    const request = await db.query("SELECT * FROM admin");
-    const savedUsename = request.rows[0].username;
-    const savedPassword = request.rows[0].password;
-    try {
-      if (username != savedUsename) {
-        return cb(null, false);
-      }
-
-      bcrypt.compare(password, savedPassword, (err, result) => {
-        if (result) {
-          return cb(null, request.rows[0]);
-        } else {
-          return cb("Wrong password", false);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  new Strategy(async function (username, password, cb) {
+    const inputedUsername = username;
+    const inputedPassword = passport;
   })
 );
 
@@ -129,3 +113,26 @@ passport.deserializeUser((user, cb) => {
 app.listen(port, () => {
   console.log(`The app is listenig on port ${port}`);
 });
+
+// passport.use(
+//   new Strategy(async function verify(username, password, cb) {
+//     const request = await db.query("SELECT * FROM admin");
+//     const savedUsename = request.rows[0].username;
+//     const savedPassword = request.rows[0].password;
+//     try {
+//       if (username != savedUsename) {
+//         return cb(null, false);
+//       }
+
+//       bcrypt.compare(password, savedPassword, (err, result) => {
+//         if (result) {
+//           return cb(null, request.rows[0]);
+//         } else {
+//           return cb("Wrong password", false);
+//         }
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   })
+// );
