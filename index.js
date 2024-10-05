@@ -98,7 +98,12 @@ app.get("/logout", (req, res) => {
 passport.use(
   new Strategy(async function (username, password, cb) {
     const inputedUsername = username;
-    const inputedPassword = passport;
+    const inputedPassword = password;
+
+    const request = await db.query("SELECT * FROM admin WHERE username = $1", [
+      inputedUsername,
+    ]);
+    console.log(request.rows);
   })
 );
 
