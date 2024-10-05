@@ -109,7 +109,7 @@ passport.use(
         if (result) {
           return cb(null, request.rows[0]);
         } else {
-          return cb(null, false);
+          return cb("Wrong password", false);
         }
       });
     } catch (error) {
