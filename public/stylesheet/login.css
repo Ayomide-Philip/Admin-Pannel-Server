@@ -88,9 +88,6 @@ div.content-container {
     margin-top: 2%;
     justify-content: center;
     align-items: center;
-    animation: fadeInDownBig;
-    animation-duration: 3s;
-    animation-delay: 1s;
 }
 
 
