@@ -103,7 +103,22 @@ passport.use(
     const request = await db.query("SELECT * FROM admin WHERE username = $1", [
       inputedUsername,
     ]);
-    console.log(request.rows);
+    if (request.rows.length == 0) {
+      cb("Wrong username", false);
+    } else {
+      const savedUsename = request.rows[0].username;
+      const savedPassword = request.rows[0].password;
+
+      bcrypt.compare(inputedPassword, savedPassword, (err, result) => {
+        if (err) console.log(err);
+
+        if (result) {
+          cb(null, request.rows[0]);
+        } else {
+          cb("Wrong Password", false);
+        }
+      });
+    }
   })
 );
 
